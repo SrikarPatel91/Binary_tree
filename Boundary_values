@@ -1,0 +1,56 @@
+'''
+Definition for Node
+class Node:
+    def __init__(self, 
+    data):
+        self.data = 
+        data
+        self.right = None
+        self.left = None
+'''
+
+class Solution:
+    def boundaryTraversal(self, root):
+        # code here
+        res2=[]
+        res1=[root.data]
+        res3=[]
+        def leaf_nodes(root):
+            if root==None:
+                return
+            if root.left==None and root.right==None:
+                res2.append(root.data)
+                return
+            leaf_nodes(root.left)
+            leaf_nodes(root.right)
+    
+        def l_nodes(root):
+            if root==None:
+                return
+            res1.append(root.data)
+            if root.left:
+                l_nodes(root.left)
+            else:
+                l_nodes(root.right)
+            
+        def r_nodes(root):
+            if root==None:
+                return
+            # r_nodes(root.right)
+            if root.right:
+                r_nodes(root.right)
+            else:
+                r_nodes(root.left)
+            res3.append(root.data)
+        
+        leaf_nodes(root)
+        l_nodes(root.left)
+        r_nodes(root.right)
+        # print(res1,res2,res3)
+        if len(res2)!=0 and res2[0]==res1[-1]:
+            res1.pop()
+        
+        if len(res3)!=0 and len(res2)!=0 and res2[-1]==res3[0]:
+            res2.pop()
+            
+        return res1+res2+res3
