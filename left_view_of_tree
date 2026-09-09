@@ -1,0 +1,35 @@
+''' Structure of Binary Tree Node
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.right = None
+        self.left = None 
+'''
+from collections import deque
+class Solution:
+    def leftView(self, root):
+        # code here
+        res=[]
+        # def pre(root,level):
+        #     if root==None:
+        #         return
+        #     if level==len(res):
+        #         res.append(root.data)
+        #     pre(root.left,level+1)
+        #     pre(root.right,level+1)
+        # pre(root,0)
+        # return res
+        if root==None:
+            return []
+            
+        dq=deque()
+        dq.append([root,0])
+        while dq:
+            val,l=dq.popleft()
+            if l==len(res):
+                res.append(val.data)
+            if val.left:
+                dq.append([val.left,l+1])
+            if val.right:
+                dq.append([val.right,l+1])
+        return res
